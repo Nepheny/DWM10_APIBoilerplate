@@ -1,3 +1,31 @@
+/* TAG STYLE */
+body {
+    padding: 0;
+    margin: 0;
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CLASS STYLE */
+.full-window-height {
+    height: 100vh;
+}
 .hidden {
     display: none!important;
+}
+.base-section {
+    background-color: #FFCE99;
+    height: 80vh;
+    width: 70vw;
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 410px) {
+    .base-section {
+        height: 100vh;
+        width: 100vw;
+    }
 }
