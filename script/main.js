@@ -7,7 +7,7 @@ $(document).ready(function () {
         $('[data-target]').on('click', function () {
             navigateView(this.dataset.target);
         });
-        $('[data-ajax]').on('click', function () {
+        $('[data-ajax="Appel en cours"]').on('click', function () {
             $.get("https://dog.ceo/api/breeds/list/all", function (data) {
                 let breedsList = Object.keys(data.message);
                 let list = document.createElement('ul');
@@ -30,8 +30,14 @@ $(document).ready(function () {
                         }
                     });
                 });
-                //Quand on clique, on lance une nouvelle requête ajax qui récupèrera une liste d'images pour la race cliquée
             });
+        });
+
+
+        //let inputText = document.querySelector('[data-ajax="EnvoiEnCours"]').value;
+        $('[data-ajaxText]').on('keypress', function (el) {
+            
+            debugger;
         });
     }
 
