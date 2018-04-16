@@ -8,36 +8,19 @@ $(document).ready(function () {
             navigateView(this.dataset.target);
         });
         $('[data-ajax]').on('click', function () {
-            $.get("https://swapi.co/api/people/1", function (data) {
-/* let name = "Nom : " + data.name;
-let mass = "Poids : " + data.mass;
-let birthDate = "Date de naissance : " + data.birth_year; */
-//JQuery
-/* $'[data-page="home"]').append('<p>' + name + '</p>');
-$'[data-page="home"]').append('<p>' + mass + '</p>');
-$'[data-page="home"]').append('<p>' + birthDate + '</p>'); */
-//Javascript
-/* let values = document.createElement('p');
-nameP.innerHTML = name;
-document.querySelector('[data-page="home"]').appendChild(nameP);
-let values = document.createElement('p');
-nameP.innerHTML = mass;
-document.querySelector('[data-page="home"]').appendChild(nameP);
-let values = document.createElement('p');
-nameP.innerHTML = birthDate;
-document.querySelector('[data-page="home"]').appendChild(nameP);
-//Boucle Javascript */
-                let values = [
-                    name = "Nom : " + data.name,
-                    mass = "Poids : " + data.mass,
-                    birthDate = "Date de naissance : " + data.birth_year,
-                ];
-
-                for (let i = 0; i <values.length; i++) {
-                    let p = document.createElement('p');
-                    p.innerHTML = values[i];
-                    document.querySelector('[data-page="home"]').append(p);
+            $.get("https://dog.ceo/api/breeds/list/all", function (data) {
+                let breedsList = Object.keys(data.message);
+                let list = document.createElement('ul');
+                list.classList.add('list-style');
+                for (let i = 0; i < breedsList.length; i++) {
+                    let listElement = document.createElement('li');
+                    listElement.innerHTML = breedsList[i];
+                    list.appendChild(listElement);
                 }
+                document.querySelector('[data-page="home"]').appendChild(list);
+                //https://dog.ceo/api/breed/hound/images
+                //On va devoir créer des eventListener pour le clic sur chacune des races
+                //Quand on clique, on lance une nouvelle requête ajax qui récupèrera une liste d'images pour la race cliquée
             });
         });
     }

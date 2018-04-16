@@ -18,8 +18,21 @@ main {
 }
 .base-section {
     background-color: #FFCE99;
+    overflow: scroll;
     height: 80vh;
     width: 70vw;
+}
+
+.list-style {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.list-style li {
+    cursor: pointer;
+    font-size: 2rem;
 }
 
 /* MEDIA QUERIES */
