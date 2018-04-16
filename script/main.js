@@ -19,7 +19,6 @@ $(document).ready(function () {
                 }
                 document.querySelector('[data-page="home"]').appendChild(list);
                 //https://dog.ceo/api/breed/hound/images
-                //On va devoir créer des eventListener pour le clic sur chacune des races
                 $('li').on('click', function () {
                     $.get('https://dog.ceo/api/breed/' + $(this).html() + '/images/random', function (imgs) {
                         if ($('.modal').length > 0) {
@@ -35,20 +34,65 @@ $(document).ready(function () {
 
 
         //let inputText = document.querySelector('[data-ajax="EnvoiEnCours"]').value;
-        $('[data-ajaxText]').on('keypress', function (el) {
-            
-            debugger;
+        $('[data-ajax]').on('keypress', function (e) {
+           if(e.key == "Enter") {
+               $.get("https://dog.ceo/api/breeds/list/all", function (data) {
+                    let breedsList = Object.keys(data.message);
+                    let inputValue = document.querySelector('[data-ajax="EnvoiEnCours"]').value;
+                    for (let i = 0; i < breedsList.length; i++) {
+                        if (breedsList[i] == inputValue) {
+                            $.get('https://dog.ceo/api/breed/' + inputValue + '/images/random', function (imgs) {
+                                if ($('.modal').length > 0 || $('.error-text').length > 0) {
+                                    $('.modal').remove();
+                                    $('.error-text').remove();
+                                    addDivImg(imgs);
+                                } else {
+                                    addDivImg(imgs);
+                                }
+                            });
+                        } else if(inputValue == "") {
+                            let text = document.createTextNode("Veuillez entrer le nom d'une race.");
+                            if ($('.error-text').length > 0) {
+                                $('.error-text').remove();
+                                $('.modal').remove();
+                                addDivText(text);
+                            } else {
+                                addDivText(text);
+                            }
+                        } else {
+                            let text = document.createTextNode("La race que vous avez tapé n'est pas répertoriée dans notre API.");
+                            if ($('.error-text').length > 0) {
+                                $('.error-text').remove();
+                                $('.modal').remove();
+                                addDivText(text);
+                            } else {
+                                addDivText(text);
+                            }
+                        }
+                    }
+                });
+            }
         });
     }
 
-    //Create a div for the img
-    function addDiv(imgs) {
+    //Create a div for the paragraph
+    function addDivText(text) {
+        let paragraphDiv = document.createElement('div');
+        paragraphDiv.classList.add('error-text');
+        let paragraph = document.createElement('p');
+        paragraph.appendChild(text);
+        paragraphDiv.appendChild(paragraph);
+        document.querySelector('[data-div="content"]').appendChild(paragraphDiv);
+    }
+
+    //Create a div for the img with
+    function addDivImg(imgs) {
         let imgDiv = document.createElement('div');
         imgDiv.classList.add('modal');
         let img = document.createElement('img');
         img.src = imgs.message;
         imgDiv.appendChild(img);
-        document.querySelector('[data-page="home"]').appendChild(imgDiv);
+        document.querySelector('[data-div="content"]').appendChild(imgDiv);
     }
 
     //Allow to hide and show every section of our application
