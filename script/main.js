@@ -20,9 +20,29 @@ $(document).ready(function () {
                 document.querySelector('[data-page="home"]').appendChild(list);
                 //https://dog.ceo/api/breed/hound/images
                 //On va devoir créer des eventListener pour le clic sur chacune des races
+                $('li').on('click', function () {
+                    $.get('https://dog.ceo/api/breed/' + $(this).html() + '/images/random', function (imgs) {
+                        if ($('.modal').length > 0) {
+                            $('.modal').remove();
+                            addDiv(imgs);
+                        } else {
+                            addDiv(imgs);
+                        }
+                    });
+                });
                 //Quand on clique, on lance une nouvelle requête ajax qui récupèrera une liste d'images pour la race cliquée
             });
         });
+    }
+
+    //Create a div for the img
+    function addDiv(imgs) {
+        let imgDiv = document.createElement('div');
+        imgDiv.classList.add('modal');
+        let img = document.createElement('img');
+        img.src = imgs.message;
+        imgDiv.appendChild(img);
+        document.querySelector('[data-page="home"]').appendChild(imgDiv);
     }
 
     //Allow to hide and show every section of our application

@@ -35,6 +35,12 @@ main {
     font-size: 2rem;
 }
 
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
 /* MEDIA QUERIES */
 @media screen and (max-width: 410px) {
     .base-section {
