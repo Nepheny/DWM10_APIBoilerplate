@@ -1,3 +1,3 @@
 # DWM10_APIBoilerplate
 
-First use of an API
+Première utilisation d'une API sans authentification
